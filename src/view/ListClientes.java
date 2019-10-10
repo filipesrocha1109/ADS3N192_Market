@@ -100,6 +100,11 @@ public class ListClientes extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tableClientes);
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,6 +147,26 @@ public class ListClientes extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int linha = tableClientes.getSelectedRow();
+        if(linha <0){
+            JOptionPane.showMessageDialog(this, "voce deve selecionar um cliente");
+            
+        }else{
+            int id = (int) tableClientes.getValueAt(linha, 0);
+            String nome = (String) tableClientes.getValueAt(linha, 1);
+            int  resposta = JOptionPane.showConfirmDialog(this,
+                "confirma a exclusão do cliente" + nome + ",",
+                " excluir cliente", JOptionPane.YES_NO_OPTION);
+            if(resposta == JOptionPane.YES_OPTION){
+                ClienteDAO.excluir(id);
+                carregarTabela();
+            }
+            
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
